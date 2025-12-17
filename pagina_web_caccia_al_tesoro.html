@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>Caccia al Tesoro — Invito</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.14);
+      --text: rgba(255, 255, 255, 0.92);
+      --muted: rgba(255, 255, 255, 0.72);
+      --accent: #7dd3fc;
+      --accent-2: #a78bfa;
+      --focus: #fbbf24;
+      --shadow: 0 20px 70px rgba(0, 0, 0, 0.45);
+      --radius: 18px;
+    }
+
+    /* Light mode overrides (keeps readability) */
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f7fb;
+        --card: rgba(255, 255, 255, 0.86);
+        --card-border: rgba(15, 23, 42, 0.10);
+        --text: rgba(15, 23, 42, 0.92);
+        --muted: rgba(15, 23, 42, 0.70);
+        --accent: #0284c7;
+        --accent-2: #6d28d9;
+        --shadow: 0 18px 60px rgba(2, 6, 23, 0.12);
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      line-height: 1.6;
+      background: radial-gradient(1200px 700px at 15% 10%, rgba(125, 211, 252, 0.22), transparent 55%),
+                  radial-gradient(900px 600px at 85% 20%, rgba(167, 139, 250, 0.18), transparent 50%),
+                  radial-gradient(1000px 800px at 50% 100%, rgba(34, 197, 94, 0.10), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    a { color: inherit; }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+    .skip-link:focus {
+      left: 16px;
+      top: 16px;
+      width: auto;
+      height: auto;
+      padding: 10px 12px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+      z-index: 999;
+    }
+
+    .wrap {
+      width: min(860px, 100%);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--card-border);
+      background: rgba(0, 0, 0, 0.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .badge .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 0 0 4px rgba(125, 211, 252, 0.14);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(18px, 4vw, 34px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.55rem, 2.6vw, 2.15rem);
+      letter-spacing: 0.2px;
+    }
+
+    .subtitle {
+      margin: 0.35rem 0 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    main {
+      margin-top: 14px;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--card-border), transparent);
+      margin: 18px 0;
+    }
+
+    .prose p {
+      margin: 0 0 14px;
+      font-size: 1.07rem;
+    }
+
+    .callout {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px dashed rgba(125, 211, 252, 0.45);
+      background: rgba(125, 211, 252, 0.08);
+      color: var(--text);
+    }
+
+    .callout strong {
+      color: var(--text);
+    }
+
+    .footer {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      background: linear-gradient(135deg, rgba(125, 211, 252, 0.18), rgba(167, 139, 250, 0.18));
+      cursor: pointer;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    .btn:hover { filter: brightness(1.05); }
+
+    /* Reduce motion for accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      * { scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#contenuto">Vai al contenuto</a>
+
+  <div class="wrap">
+    <header aria-label="Intestazione">
+      <div class="badge" role="status" aria-live="polite">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Invito ufficiale • Caccia al Tesoro</span>
+      </div>
+      <div class="badge" aria-label="Decorazione">
+        <span aria-hidden="true">🎁</span>
+        <span aria-hidden="true">🎈</span>
+      </div>
+    </header>
+
+    <section class="card" aria-labelledby="titolo">
+      <h1 id="titolo">Benvenuto nella Caccia al Tesoro piu' misteriosa del momento</h1>
+      <p class="subtitle">Un percorso di indizi e intuizioni… fino alla sorpresa finale.</p>
+
+      <div class="divider" role="separator" aria-hidden="true"></div>
+
+      <main id="contenuto" class="prose">
+        <p>
+          Benvenuto, dunque, nella <strong>Caccia al Tesoro</strong>: un percorso di indizi e intuizioni, concepito per condurti —
+          passo dopo passo — verso il dono conclusivo.
+        </p>
+
+        <p>
+          Se alla sorpresa finale vorrai giungere, sappi che la via non sarà immediata:
+          tra enigmi da sciogliere, tracce celate e piccole prove d’attenzione, ti sarà richiesto di
+          <strong>riflettere</strong>, <strong>osservare</strong>… e soprattutto <strong>dedurre</strong>.
+        </p>
+
+        <p>
+          Ogni tappa ti avvicinerà alla meta, ma soltanto a condizione che tu sappia guardare <strong>oltre ciò che appare</strong>.
+          Talvolta sarà la logica a guidarti, talvolta l’immaginazione; e, in certi momenti, dovrai persino cambiare prospettiva…
+          <strong>alzando lo sguardo</strong> anziché mantenerlo a terra.
+        </p>
+
+        <p>
+          Il primo indizio è già nei tuoi dintorni: discreto, silenzioso, paziente.
+          Non si impone, non reclama attenzione, eppure custodisce il segno di un viaggio:
+          parla di <strong>cieli vasti</strong>, di <strong>orizzonti lontani</strong>, e di sogni che sanno restare sospesi nell’aria.
+        </p>
+
+        <div class="callout" role="note" aria-label="Messaggio finale">
+          <strong>Concediti il tempo necessario.</strong> Pensa. Cerca. Osserva con cura.
+          Perché da questo momento… <strong>la caccia ha ufficialmente inizio.</strong>
+        </div>
+
+        <div class="footer" aria-label="Piè di pagina">
+          <span>Buona fortuna… e occhi aperti 👀</span>
+        </div>
+      </main>
+    </section>
+  </div>
+</body>
+</html>
